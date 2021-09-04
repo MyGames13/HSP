@@ -17,6 +17,9 @@ namespace GameAnalyticsSDK.Wrapper
 #if gameanalytics_mopub_enabled
         private static readonly AndroidJavaClass MoPubClass = new AndroidJavaClass("com.mopub.unity.MoPubUnityPlugin");
 #endif
+#if gameanalytics_topon_enabled
+        private static readonly AndroidJavaClass TopOnClass = new AndroidJavaClass("com.anythink.core.api.ATSDK");
+#endif
 
         private static void configureAvailableCustomDimensions01(string list)
         {
@@ -116,7 +119,7 @@ namespace GameAnalyticsSDK.Wrapper
             AndroidJavaClass jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
             AndroidJavaObject activity = jc.GetStatic<AndroidJavaObject>("currentActivity");
 
-            GA.CallStatic("setEnabledErrorReporting", false);
+            GA.CallStatic("setEnabledErrorReporting", GameAnalytics.SettingsGA.NativeErrorReporting);
             AndroidJavaClass ga = new AndroidJavaClass("com.gameanalytics.sdk.GAPlatform");
             ga.CallStatic("initialize", activity);
             GA.CallStatic("initialize", gamekey, gamesecret);
@@ -265,51 +268,6 @@ namespace GameAnalyticsSDK.Wrapper
         private static long stopTimer(string key)
         {
             return GA.CallStatic<long>("stopTimer", key);
-        }
-
-        private static void subscribeMoPubImpressions()
-        {
-            GAMopubIntegration.ListenForImpressions(MopubImpressionHandler);
-        }
-
-        private static void MopubImpressionHandler(string json)
-        {
-#if gameanalytics_mopub_enabled
-            GA.CallStatic("addImpressionMoPubEvent", MoPubClass.CallStatic<string>("getSDKVersion"), json);
-#endif
-        }
-
-        private static void subscribeFyberImpressions()
-        {
-            GAFyberIntegration.ListenForImpressions(FyberImpressionHandler);
-        }
-
-        private static void FyberImpressionHandler(string json)
-        {
-#if gameanalytics_fyber_enabled
-            GA.CallStatic("addImpressionFyberEvent", Fyber.FairBid.Version, json);
-#endif
-        }
-
-        private static void subscribeIronSourceImpressions()
-        {
-            GAIronSourceIntegration.ListenForImpressions(IronSourceImpressionHandler);
-        }
-
-        private static void IronSourceImpressionHandler(string json)
-        {
-#if gameanalytics_ironsource_enabled
-
-            // Remove potential label/tag from version number
-            string v = IronSource.pluginVersion();
-            int index = v.IndexOf("-");
-            if(index >= 0)
-            {
-                v = v.Substring(0, index);
-            }
-
-            GA.CallStatic("addImpressionIronSourceEvent", v, json);
-#endif
         }
 #endif
     }
