@@ -241,8 +241,8 @@ PlayerSettings:
   AndroidTargetArchitectures: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: /Users/gankstarr/Desktop/Projects/HighSchoolPrincipal/user.keystore
-  AndroidKeyaliasName: anulagarwal
+  AndroidKeystoreName: '{inproject}: user.keystore'
+  AndroidKeyaliasName: hsp
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
