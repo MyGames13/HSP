@@ -16,9 +16,9 @@ MonoBehaviour:
   clientTokens:
   - 
   appIds:
-  - 848167012792484
+  - 146006167713298
   appLabels:
-  - Highschool PrinciPal
+  - Principal
   cookie: 1
   logging: 1
   status: 1
