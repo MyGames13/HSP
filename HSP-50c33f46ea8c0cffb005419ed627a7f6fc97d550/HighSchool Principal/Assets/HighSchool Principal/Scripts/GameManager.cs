@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+	public bool Chinese;
 	public Animator CameraAnim;
 	public GameObject startButton,startConvoButton,convoNpc,FirstMission,SecondMission,ThirdMission;
 	public GameObject[] Npcs,files;
